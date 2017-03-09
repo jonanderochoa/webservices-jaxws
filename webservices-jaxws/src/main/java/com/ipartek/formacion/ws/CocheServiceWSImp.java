@@ -10,7 +10,9 @@ import com.ipartek.formacion.pojo.Coche;
 import com.ipartek.formacion.service.CocheService;
 import com.ipartek.formacion.service.CocheServiceImp;
 
-@WebService(endpointInterface ="com.ipartek.formacion.ws.CocheServiceWS")//A que clase apunta el interfaz
+@WebService(serviceName="cocheservice", 
+wsdlLocation = "Cocheservice", 
+endpointInterface ="com.ipartek.formacion.ws.CocheServiceWS")
 public class CocheServiceWSImp implements CocheServiceWS{
 
 	public CocheColeccion getAll() {
@@ -30,5 +32,4 @@ public class CocheServiceWSImp implements CocheServiceWS{
 		}
 		return coche;
 	}
-
 }
