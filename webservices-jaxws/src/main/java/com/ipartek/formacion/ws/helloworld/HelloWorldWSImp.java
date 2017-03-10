@@ -1,9 +1,9 @@
-package com.ipartek.formacion.ws;
+package com.ipartek.formacion.ws.helloworld;
 
 import javax.jws.WebService;
 
 //endpointInterfaz es la interfaz a la que apunta
-@WebService(endpointInterface="com.ipartek.formacion.ws.HelloWorldWS")
+@WebService(endpointInterface="com.ipartek.formacion.ws.helloworld.HelloWorldWS")
 public class HelloWorldWSImp implements HelloWorldWS{
 
 	public String obtenerHolaMundo() {

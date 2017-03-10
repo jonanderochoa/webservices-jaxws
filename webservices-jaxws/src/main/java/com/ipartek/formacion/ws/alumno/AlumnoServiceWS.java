@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ws;
+package com.ipartek.formacion.ws.alumno;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -18,7 +18,7 @@ public interface AlumnoServiceWS {
 
 	@WebMethod
 	@ResponseWrapper(targetNamespace="http://com.ipartek.formacion/types",
-	className="com.ipartek.formacion.ws.AlumnoColeccion")//Mapeamos la respuesta
+	className="com.ipartek.formacion.ws.alumno.AlumnoColeccion")//Mapeamos la respuesta
 	public AlumnoColeccion getAll();
 	
 	@WebMethod

@@ -1,5 +1,7 @@
-package com.ipartek.formacion.ws;
+package com.ipartek.formacion.ws.pelicula;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -21,6 +23,7 @@ targetNamespace="")
 @SOAPBinding(use = Use.LITERAL, style = Style.DOCUMENT)
 public class PeliculaServiceWSImp {
 	
+	//Cargamos el contexto del servicio web
 	@Resource
 	WebServiceContext webServiceContext;
 
@@ -46,13 +49,32 @@ public class PeliculaServiceWSImp {
 	private boolean validarPeticion(){
 		boolean valida = false;
 		//WS-Security
-		//Con esto recogemos los datos de la cabecera
+		//Cargamos el contexto de soap
 		MessageContext contextoMensajes = webServiceContext.getMessageContext();
+		//Recogemos un mapa con todos los encabezados del contexto de la peticion soap
+		Map<?, ?> encabezados = (Map<?, ?>) contextoMensajes.get(MessageContext.HTTP_REQUEST_HEADERS);
+		//El nombre del atributo del mapa anterior "encabezados" se llama asi porque asi se decide
+		//Es una lista porque asi lo decidimos
+		List<?> listaDeParametros = (List<?>) encabezados.get("sessionId");
+		//VALIDACION
+		//Cogeriamos la lista de sesiones activas. Ya lo hicimos con un listener. Lo omitimos para simplificar.
+		//ipsession lo enviaria cliente
+		String sessionId = "ipsession";
+		//Comprobamos que la lista no sea nula
+		if(listaDeParametros != null){
+			//Aqui hariamos o producuriamos cualquier validacion commpleja (token, algoritmo,...)
+			//Porque consume muchos recursos
+			if(sessionId.equals(listaDeParametros.get(0).toString())){
+				valida = true;
+			}
+		}
+		
 		return valida;
 	}
 	
 	@WebMethod(operationName="obtenertodo")
 	public Set<Pelicula> getAll(){
+		
 		return null;
 	}
 }
