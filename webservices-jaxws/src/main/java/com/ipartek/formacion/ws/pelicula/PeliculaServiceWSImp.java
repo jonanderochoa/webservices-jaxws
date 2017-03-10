@@ -73,8 +73,19 @@ public class PeliculaServiceWSImp {
 	}
 	
 	@WebMethod(operationName="obtenertodo")
-	public Set<Pelicula> getAll(){
-		
-		return null;
+	public PeliculasColection getAll(){
+		PeliculasColection coleccion = new PeliculasColection();
+		if(validarPeticion()){//Si la contraseña es correcta....
+			PeliculaService pS = new PeliculaSerciveImp();
+			Set<Pelicula> peliculas = pS.getAll();
+			if(peliculas == null){
+				coleccion.setMensaje("la lista esta vacia ");
+			}else{
+				coleccion.setPeliculas(peliculas);
+			}
+		}else{//Si la contraseña NO es correcta....
+			coleccion.setMensaje("La contraseña enviada no es correcta");
+		}
+		return coleccion;
 	}
 }
