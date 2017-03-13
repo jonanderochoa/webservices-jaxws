@@ -1,6 +1,7 @@
 package com.ipartek.formacion.pojo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -25,6 +26,18 @@ public class Pelicula implements Serializable, Comparable<Pelicula> {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return "Pelicula [codigo=" + codigo + ", titulo=" + titulo + ", festreno=" + fechaFormato(festreno) + ", genero=" + genero
+				+ "]";
+	}
+	
+	public String fechaFormato(Date festreno){
+		String fecha = new SimpleDateFormat("dd/MM/yyyy").format(festreno);
+		return fecha;
+	}
+
+
 	public Genero getGenero() {
 		return genero;
 	}

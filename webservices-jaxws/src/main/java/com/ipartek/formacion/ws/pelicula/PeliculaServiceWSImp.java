@@ -60,13 +60,12 @@ public class PeliculaServiceWSImp {
 		//Cogeriamos la lista de sesiones activas. Ya lo hicimos con un listener. Lo omitimos para simplificar.
 		//ipsession lo enviaria cliente
 		final String sessionId = "ipsession";
-		final String user = "jon";
-		final String password = "thor";
 		//Comprobamos que la lista no sea nula
 		if(listaDeParametros != null){
 			//Aqui hariamos o producuriamos cualquier validacion commpleja (token, algoritmo,...)
 			//Porque consume muchos recursos
-			if(sessionId.equals(listaDeParametros.get(0).toString())){
+			if(sessionId.equals(listaDeParametros.get(0).toString())  
+					){
 				valida = true;
 			}
 		}
@@ -77,7 +76,7 @@ public class PeliculaServiceWSImp {
 	@WebMethod(operationName="obtenertodo")
 	public PeliculasColection getAll(){
 		PeliculasColection coleccion = new PeliculasColection();
-		if(validarPeticion()){//Si la contraseña es correcta....
+		if(validarUsuario()){//Si la contraseña es correcta....
 			PeliculaService pS = new PeliculaSerciveImp();
 			Set<Pelicula> peliculas = pS.getAll();
 			if(peliculas == null){
@@ -89,5 +88,32 @@ public class PeliculaServiceWSImp {
 			coleccion.setMensaje("La contraseña enviada no es correcta");
 		}
 		return coleccion;
+	}
+
+	private boolean validarUsuario() {
+		boolean valida = false;
+		//WS-Security
+		//Cargamos el contexto de soap
+		MessageContext contextoMensajes = webServiceContext.getMessageContext();
+		//Recogemos un mapa con todos los encabezados del contexto de la peticion soap
+		Map<?, ?> encabezados = (Map<?, ?>) contextoMensajes.get(MessageContext.HTTP_REQUEST_HEADERS);
+		//El nombre del atributo del mapa anterior "encabezados" se llama asi porque asi se decide
+		//Es una lista porque asi lo decidimos
+		List<?> listaDeUsers = (List<?>) encabezados.get("user");
+		List<?> listaPass = (List<?>) encabezados.get("password");
+		//VALIDACION
+		//Cogeriamos la lista de sesiones activas. Ya lo hicimos con un listener. Lo omitimos para simplificar.
+		//ipsession lo enviaria cliente
+		final String user = "jon";
+		final String password = "thor";
+		//Comprobamos que la lista no sea nula
+		if(listaDeUsers != null && listaPass != null){
+			//Aqui hariamos o producuriamos cualquier validacion commpleja (token, algoritmo,...)
+			//Porque consume muchos recursos
+			if(user.equals(listaDeUsers.get(0).toString()) && password.equals(listaPass.get(0).toString()) ){
+				valida = true;
+			}
+		}
+		return valida;
 	}
 }
