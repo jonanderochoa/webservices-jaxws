@@ -18,7 +18,14 @@
 
       <xs:complexType name="obtenertodoResponse">
         <xs:sequence>
-          <xs:element name="return" type="tns:pelicula" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="return" type="tns:peliculasColection" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="peliculasColection">
+        <xs:sequence>
+          <xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+          <xs:element name="peliculas" type="tns:pelicula" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:complexType>
 

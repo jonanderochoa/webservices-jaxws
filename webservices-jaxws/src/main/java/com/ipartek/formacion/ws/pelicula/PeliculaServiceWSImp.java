@@ -59,7 +59,9 @@ public class PeliculaServiceWSImp {
 		//VALIDACION
 		//Cogeriamos la lista de sesiones activas. Ya lo hicimos con un listener. Lo omitimos para simplificar.
 		//ipsession lo enviaria cliente
-		String sessionId = "ipsession";
+		final String sessionId = "ipsession";
+		final String user = "jon";
+		final String password = "thor";
 		//Comprobamos que la lista no sea nula
 		if(listaDeParametros != null){
 			//Aqui hariamos o producuriamos cualquier validacion commpleja (token, algoritmo,...)
